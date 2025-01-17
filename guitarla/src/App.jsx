@@ -10,10 +10,10 @@ function App() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-	// Cart
+  // Cart
   const [cart, setCart] = useState([]);
-	// Drawler
-	const [open, setOpen] = useState(false);
+  // Drawler
+  const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
     setOpen(true);
@@ -22,7 +22,6 @@ function App() {
   const onClose = () => {
     setOpen(false);
   };
-
 
   return (
     <Layout>
@@ -34,7 +33,11 @@ function App() {
         }}
       >
         <h1 style={{ color: "white" }}>Fake Store</h1>
-        <Badge count={cart.length} showZero onClick={showDrawer}>
+        <Badge
+          count={cart.reduce((acc, item) => acc + item.cantidad, 0)}
+          showZero
+          onClick={showDrawer}
+        >
           <Avatar shape="square" size="large" icon={<ShoppingCartOutlined />} />
         </Badge>
       </Header>
@@ -48,7 +51,12 @@ function App() {
           }}
         >
           <Products cart={cart} setCart={setCart} />
-					<CartSummary cart={cart} open={open} onClose={onClose}></CartSummary>
+          <CartSummary
+            cart={cart}
+            open={open}
+            onClose={onClose}
+            setCart={setCart}
+          ></CartSummary>
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>

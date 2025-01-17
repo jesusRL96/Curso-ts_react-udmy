@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Product from "./Product";
 import { Row } from "antd";
 
-
 const Products = ({ cart, setCart }) => {
   const [products, setProducts] = React.useState([]);
   const getProducts = async () => {
