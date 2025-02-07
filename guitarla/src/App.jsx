@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Products from "../components/Products";
 import CartSummary from "../components/CartSummary";
 import { Avatar, Badge, Layout, theme } from "antd";
@@ -11,7 +11,10 @@ function App() {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
   // Cart
-  const [cart, setCart] = useState([]);
+  const initialCart = localStorage.getItem("cart");
+  const [cart, setCart] = useState(
+    initialCart != null ? JSON.parse(initialCart) : [],
+  );
   // Drawler
   const [open, setOpen] = useState(false);
 
@@ -22,6 +25,9 @@ function App() {
   const onClose = () => {
     setOpen(false);
   };
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, cart);
 
   return (
     <Layout>
