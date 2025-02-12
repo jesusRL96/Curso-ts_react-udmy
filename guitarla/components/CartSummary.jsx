@@ -2,29 +2,7 @@ import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Divider, Drawer, Image, Space, Table } from "antd";
 import React from "react";
 
-const CartSummary = ({ cart, setCart, onClose, open }) => {
-  const addItem = (id) => {
-    setCart(
-      cart.map((item) => {
-        return item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item;
-      }),
-    );
-  };
-
-  const removeItem = (id) => {
-    setCart(
-      cart
-        .map((item) => {
-          if (item.id === id) {
-            return { ...item, cantidad: item.cantidad - 1 };
-          } else {
-            return item;
-          }
-        })
-        .filter((item) => item.cantidad > 0),
-    );
-  };
-
+const CartSummary = ({ cart, addItem, removeItem, onClose, open }) => {
   const columns = [
     {
       title: "Nombre",

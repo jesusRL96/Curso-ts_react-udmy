@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
 import Products from "../components/Products";
 import CartSummary from "../components/CartSummary";
 import { Avatar, Badge, Layout, theme } from "antd";
+import { useEffect, useState } from "react";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import useCart from "./hooks/useCart";
 
 const { Header, Content, Footer } = Layout;
 
@@ -12,9 +13,8 @@ function App() {
   } = theme.useToken();
   // Cart
   const initialCart = localStorage.getItem("cart");
-  const [cart, setCart] = useState(
-    initialCart != null ? JSON.parse(initialCart) : [],
-  );
+  const { cart, setCart, addToCart, addItem, removeItem } =
+    useCart(initialCart);
   // Drawler
   const [open, setOpen] = useState(false);
 
@@ -56,12 +56,13 @@ function App() {
             borderRadius: borderRadiusLG,
           }}
         >
-          <Products cart={cart} setCart={setCart} />
+          <Products cart={cart} addToCart={addToCart} />
           <CartSummary
             cart={cart}
             open={open}
             onClose={onClose}
-            setCart={setCart}
+            addItem={addItem}
+            removeItem={removeItem}
           ></CartSummary>
         </div>
       </Content>

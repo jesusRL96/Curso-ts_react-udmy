@@ -4,22 +4,8 @@ import { Col, Card, Button, Space } from "antd";
 const { Meta } = Card;
 
 const Product = (props) => {
-  const { itemData, cart, setCart } = props;
+  const { itemData, cart, addToCart } = props;
   const { title, price, image } = itemData;
-  const addToCart = () => {
-    const found = cart.find((item) => item.id === itemData.id);
-    if (!found) {
-      setCart([...cart, { ...itemData, cantidad: 1 }]);
-    } else {
-      setCart(
-        cart.map((item) =>
-          item.id === itemData.id
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item,
-        ),
-      );
-    }
-  };
   const found = cart.find((item) => item.id === itemData.id);
   return (
     <Col span={5}>
@@ -30,7 +16,12 @@ const Product = (props) => {
       >
         <Meta title={title} description={`$${price}`} />
         <Space>
-          <Button type="primary" onClick={addToCart}>
+          <Button
+            type="primary"
+            onClick={() => {
+              addToCart(itemData);
+            }}
+          >
             Agregar
           </Button>
           {found && (
