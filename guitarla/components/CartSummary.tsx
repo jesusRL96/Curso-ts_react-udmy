@@ -13,19 +13,19 @@ const CartSummary = ({ cart, addItem, removeItem, onClose, open }) => {
       title: "Descripcion",
       dataIndex: "description",
       key: "description",
-      render: (text) => text.substring(0, 100) + "...",
+      render: (text:string) => text.substring(0, 100) + "...",
     },
     {
       title: "Imagen",
       dataIndex: "image",
       key: "image",
-      render: (image) => <Image width={100} src={image} />,
+      render: (image:string) => <Image width={100} src={image} />,
     },
     {
       title: "Precio unitario",
       dataIndex: "price",
       key: "price",
-      render: (price) => "$" + price,
+      render: (price:number) => "$" + price,
     },
     {
       title: "Cantidad",

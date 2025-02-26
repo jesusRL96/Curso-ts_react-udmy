@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 
+interface IProduct {
+	id: number;
+	cantidad: number;
+	title: string;
+	price: number;
+	image: string;
+}
+
 const useCart = (initialCart) => {
-  const [cart, setCart] = useState(
-    initialCart != null ? JSON.parse(initialCart) : [],
+  const [cart, setCart] = useState<IProduct[]>(
+    []
   );
 
   const addToCart = (itemData) => {

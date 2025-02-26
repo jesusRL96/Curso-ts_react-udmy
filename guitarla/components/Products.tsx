@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
 import Product from "./Product";
 import { Row } from "antd";
+import { IProduct } from "../src/interfaces";
 
-const Products = ({ cart, addToCart }) => {
-  const [products, setProducts] = React.useState([]);
+const Products = ({
+  cart,
+  addToCart,
+}: {
+  cart: IProduct[];
+  addToCart: (product: IProduct) => void;
+}) => {
+  const [products, setProducts] = React.useState<IProduct[]>([]);
   const getProducts = async () => {
     const url = "https://fakestoreapi.com/products";
     const response = await fetch(url);

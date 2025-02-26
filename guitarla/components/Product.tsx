@@ -1,9 +1,16 @@
 import React from "react";
 import { Col, Card, Button, Space } from "antd";
+import { IProduct } from "../src/interfaces";
 
 const { Meta } = Card;
 
-const Product = (props) => {
+export type ProductProps = {
+  itemData: IProduct;
+  cart: IProduct[];
+  addToCart: (product: IProduct) => void;
+};
+
+const Product = (props: ProductProps) => {
   const { itemData, cart, addToCart } = props;
   const { title, price, image } = itemData;
   const found = cart.find((item) => item.id === itemData.id);
