@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { MenuItem } from "./components/MenuItem";
+import userOrder from "./hooks/useOrder";
+import { OrderContents } from "./components/OrderContents";
 
 function App() {
+  const { addItem, order } = userOrder();
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     var data = await fetch("https://fakestoreapi.com/products");
@@ -23,16 +26,15 @@ function App() {
       <main className="max-w-7xl mx-auto py-20 grid md:grid-cols-2">
         <div className="p-5">
           <h2 className="text-4xl font-black">Menu</h2>
-					<div className="space-y-3 mt-10">
-          {products.map((product) => (
-            <MenuItem key={product.id} item={product} />
-          ))}
-
-					</div>
+          <div className="space-y-3 mt-10">
+            {products.map((product) => (
+              <MenuItem key={product.id} item={product} addItem={addItem} />
+            ))}
+          </div>
         </div>
-        <div>
-          <h2>Consumo</h2>
-        </div>
+        <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
+					<OrderContents order={order}/>
+				</div>
       </main>
     </>
   );
