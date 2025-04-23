@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { MenuItem } from "./components/MenuItem";
 import userOrder from "./hooks/useOrder";
 import { OrderContents } from "./components/OrderContents";
+import TotalOrden from "./components/TotalOrden";
+import Propina from "./components/Propina";
 
 function App() {
-  const { addItem, order } = userOrder();
+  const { addItem, order, removeItem, tip, setTip, guardarOrden } = userOrder();
   const [products, setProducts] = useState([]);
   const getProducts = async () => {
     var data = await fetch("https://fakestoreapi.com/products");
@@ -33,8 +35,10 @@ function App() {
           </div>
         </div>
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
-					<OrderContents order={order}/>
-				</div>
+          <OrderContents order={order} removeItem={removeItem} />
+          <Propina tip={tip} setTip={setTip} />
+          <TotalOrden orden={order} tip={tip} guardarOrden={guardarOrden} />
+        </div>
       </main>
     </>
   );

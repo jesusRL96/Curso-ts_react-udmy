@@ -3,7 +3,7 @@ import { OrderItem, Product } from "../types";
 
 type MenuItemProps = {
   item: Product;
-  addItem: (item:Product) => void;
+  addItem: (item: Product) => void;
 };
 
 export const MenuItem = ({ item, addItem }: MenuItemProps) => {

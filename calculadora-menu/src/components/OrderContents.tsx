@@ -3,9 +3,10 @@ import { OrderItem } from "../types/index";
 
 type OrderItemProps = {
   order: OrderItem[];
+	removeItem: (item:OrderItem) => void;
 };
 
-export function OrderContents({ order }: OrderItemProps) {
+export function OrderContents({ order, removeItem }: OrderItemProps) {
   return (
     <div>
       <h2 className="font-black text-4xl">Consumo</h2>
@@ -25,7 +26,7 @@ export function OrderContents({ order }: OrderItemProps) {
                   </p>
                   <p className="font-black">Cantidad: {item.quantity}</p>
                 </div>
-                <button className="bg-red-600 h-8 w-8 rounded-full text-white font-black">
+                <button className="bg-red-600 h-8 w-8 rounded-full text-white font-black"onClick={()=>removeItem(item)}>
                   X
                 </button>
               </div>
