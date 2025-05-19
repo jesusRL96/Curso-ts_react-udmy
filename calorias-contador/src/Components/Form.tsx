@@ -1,11 +1,8 @@
 import React, { useState, Dispatch } from "react";
-import { Activity, Category } from "../Types";
+import { Activity } from "../Types";
 import { ActivityActions } from "../reducers/activity-reducer";
-const categories: Category[] = [
-  { id: 1, name: "Comida" },
-  { id: 2, name: "Ejercicio" },
-];
 import { v4 as uuidV4 } from "uuid";
+import { categories } from "./data";
 
 type FormProps = {
   dispatch: Dispatch<ActivityActions>;
