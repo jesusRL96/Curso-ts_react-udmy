@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, Dispatch } from "react";
 import { Activity, Category } from "../Types";
+import { ActivityActions } from "../reducers/activity-reducer";
 const categories: Category[] = [
   { id: 1, name: "Comida" },
   { id: 2, name: "Ejercicio" },
 ];
+import { v4 as uuidV4 } from "uuid";
 
-const Form = () => {
-  const [activity, setActivity] = useState<Activity>({
-    category: 0,
-    name: "",
-    calories: 0,
-  });
+type FormProps = {
+  dispatch: Dispatch<ActivityActions>;
+};
+
+const activityInitialState: Activity = {
+  id: uuidV4(),
+  category: 1,
+  name: "",
+  calories: 0,
+};
+
+const Form = ({ dispatch }: FormProps) => {
+  const [activity, setActivity] = useState<Activity>(activityInitialState);
 
   const handleChange = (
     event:
@@ -24,8 +33,21 @@ const Form = () => {
     });
   };
 
+  const isValidateForm = () => {
+    return activity.name.trim() != "" && activity.calories > 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch({ type: "save-activity", payload: { newActivity: activity } });
+    setActivity({ ...activityInitialState, id: uuidV4() });
+  };
+
   return (
-    <form className="space-y-5 bg-white shadow p-10 rounded-lg">
+    <form
+      className="space-y-5 bg-white shadow p-10 rounded-lg"
+      onSubmit={(e) => handleSubmit(e)}
+    >
       <div className="grid grid-cols-1 gap-3">
         <label htmlFor="category">Categoria:</label>
         <select
@@ -68,8 +90,9 @@ const Form = () => {
       </div>
       <input
         type="submit"
-        className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white"
-        value="Guardar comida o guardar aejercicio"
+        className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white disabled:opacity-10"
+        value={`Guardar ${activity.category == 1 ? "comida" : "ejercicio"}`}
+        disabled={!isValidateForm()}
       />
     </form>
   );
