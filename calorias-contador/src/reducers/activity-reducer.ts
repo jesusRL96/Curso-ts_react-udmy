@@ -12,6 +12,9 @@ export type ActivityActions =
   | {
       type: "set-activity";
       payload: { id: Activity["id"] };
+    }
+  | {
+      type: "clean-activities";
     };
 
 export type ActivityState = {
@@ -19,10 +22,10 @@ export type ActivityState = {
   activeId: Activity["id"];
 };
 
-const getActivitiesLocalStorage = () :Activity[] => {
-	const activities = localStorage.getItem("activities")
-	return activities ? JSON.parse(activities) : []
-}
+const getActivitiesLocalStorage = (): Activity[] => {
+  const activities = localStorage.getItem("activities");
+  return activities ? JSON.parse(activities) : [];
+};
 
 export const initialState: ActivityState = {
   activities: getActivitiesLocalStorage(),
@@ -67,5 +70,12 @@ export const activityReducer = (
       ),
     };
   }
+  if (action.type == "clean-activities") {
+		return {
+			...state,
+			activities:[]
+		}
+	}
+
   return state;
 };
