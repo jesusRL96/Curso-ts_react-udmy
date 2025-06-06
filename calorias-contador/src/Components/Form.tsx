@@ -1,11 +1,12 @@
-import React, { useState, Dispatch } from "react";
+import React, { useState, Dispatch, useEffect } from "react";
 import { Activity } from "../Types";
-import { ActivityActions } from "../reducers/activity-reducer";
+import { ActivityActions, ActivityState } from "../reducers/activity-reducer";
 import { v4 as uuidV4 } from "uuid";
 import { categories } from "./data";
 
 type FormProps = {
   dispatch: Dispatch<ActivityActions>;
+  state: ActivityState;
 };
 
 const activityInitialState: Activity = {
@@ -15,8 +16,17 @@ const activityInitialState: Activity = {
   calories: 0,
 };
 
-const Form = ({ dispatch }: FormProps) => {
+const Form = ({ dispatch, state }: FormProps) => {
   const [activity, setActivity] = useState<Activity>(activityInitialState);
+
+  useEffect(() => {
+    if (state.activeId) {
+      const activeActivity = state.activities.find(
+        (i) => i.id === state.activeId,
+      );
+      setActivity(activeActivity);
+    }
+  }, [state.activeId]);
 
   const handleChange = (
     event:

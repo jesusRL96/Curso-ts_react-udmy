@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Form from "./Components/Form";
 import { activityReducer, initialState } from "./reducers/activity-reducer";
 import { ActivityList } from "./Components/ActivityList";
@@ -16,12 +16,12 @@ function App() {
       </header>
       <section className="bg-lime-500 py-20 px-5">
         <div className="max-w-4xl mx-auto">
-          <Form dispatch={dispatch} />
+          <Form dispatch={dispatch} state={state} />
         </div>
       </section>
       <section className="p-10 mx-auto max-w-4xl">
         <div className="max-w-4xl mx-auto">
-          <ActivityList activities={state.activities} />
+          <ActivityList activities={state.activities} dispatch={dispatch} />
         </div>
       </section>
     </>
