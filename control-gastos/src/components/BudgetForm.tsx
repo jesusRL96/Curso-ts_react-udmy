@@ -1,12 +1,20 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
+import { BudgetContext } from "../context/BudgetContext";
+import { useBudget } from "../hooks/useBudget";
 
 const BudgetForm = () => {
   const budgetRef = useRef<HTMLInputElement>(null);
   const [budget, setBudget] = useState(0);
+  const { state, dispatch } = useBudget();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (budgetRef.current && budgetRef.current.value) {
-      setBudget(+budgetRef.current.value);
+    const budget = budgetRef.current ? +budgetRef.current.value : 0;
+    console.log(budget);
+    if (budget <= 0) {
+      console.log("el presupuesto no es valido");
+    } else {
+      dispatch({ type: "add-budget", payload: { budget: budget } });
     }
   };
 
