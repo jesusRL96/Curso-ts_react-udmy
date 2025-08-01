@@ -4,8 +4,7 @@ import { useBudget } from "../hooks/useBudget";
 
 const BudgetForm = () => {
   const budgetRef = useRef<HTMLInputElement>(null);
-  const [budget, setBudget] = useState(0);
-  const { state, dispatch } = useBudget();
+  const { dispatch } = useBudget();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
